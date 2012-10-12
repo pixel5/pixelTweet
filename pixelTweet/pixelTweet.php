@@ -14,7 +14,6 @@ function getTweets($handle, $show_replies){
 	date_default_timezone_set('UTC');
 	$currTime = time();
 	$timeDiff = $currTime - $oldTime;
-	echo $timeDiff;
 
 		if ($timeDiff < 30) {
 		echo "<a href='http://twitter.com/$handle'>@$handle</a><br/>"."&quot;".$savedTweet."&quot;";
