@@ -3,13 +3,15 @@ Copyright 2012 Aaron Baxter (pixel5)
 
 pixelTweet is a way for you to embed your most recent tweet onto your webpage WITHOUT authentication and without exceeding your limit on requests! Twitter limits you to 150 requests per un-authenticated IP, but this web app only makes a request every 30 seconds, maximum. 
 
-The tweet is unstyled, leaving you free to use your own CSS and creativity to make it blend with your website. 
+The tweet is un-styled, leaving you free to use your own CSS and creativity to make it blend with your website. 
 
 How to install pixelTweet
 
 1. Place the pixelTweet directory onto your web server.
 
-2. Edit 'pixelTweet.php' and change $handle = "the5thpixel"; to your twitter handle (example: $handle ="myTwitterName";) and save.
+2. Edit 'pixelTweet.php' and change $handle = "the5thpixel"; to your twitter handle (example: $handle ="myTwitterName";) and save. 
+
+OPTIONAL: Change $show_replies = false; to $show_replies = true; if you want to show tweets that are replies to others.
 
 3. Edit the page you want your tweets to appear on and paste the following code where you want the tweet to appear:
 
@@ -26,6 +28,8 @@ Solution: Make sure your file permissions are correct. The first time you load t
 
 Problem: 'savedTweet.php' is not created
 Solution: Once again, your permissions for user www-data are probably messed up… if that is the case, you have probably had more problems before this one. A workaround is to manually create the savedTweet.php file yourself and give it 777 permissions.
+
+If you encounter any other problems, contact me at aaron@pixel5.co with details on the issues.
 
 pixelTweet is licensed under Creative Commons 2012. 
 http://github.com/pixel5/pixelTweet
