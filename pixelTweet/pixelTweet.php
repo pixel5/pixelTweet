@@ -1,6 +1,6 @@
 <?php
 //Enter your twitter handle here
-$handle = "NovusUnion";
+$handle = "myTwitterName";
 
 
 function getTweets($handle){
@@ -33,7 +33,6 @@ function getTweets($handle){
 			$oTime = time();
 			$var = "<?\n\n\$savedTweet = \"$tweetArray[0]\";\n\n\$oldTime = $oTime;\n\n?>";
 			file_put_contents($file, $var) or die("~");
-			// $test = file_get_contents($file) or die("g");
 	}
 }
 getTweets($handle);
