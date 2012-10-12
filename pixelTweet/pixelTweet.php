@@ -24,7 +24,6 @@ function getTweets($handle, $show_replies){
 			$i = 0;
 			$tweetArray = array();
       		foreach($xml->status as $status){
-				// htmlspecialchars ensures quotes don't break the widget
 				
 				if ($show_replies == false) {
 					// Shows replied tweets if enabled
@@ -32,12 +31,11 @@ function getTweets($handle, $show_replies){
 							$tweetText = $status->text;
 							
 							// Check for URL's and make 'em links
-							// The Regular Expression filter
 							$reg_exUrl = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
 							$reg_exAt = '/(?<=^|\s)@([a-z0-9_]+)/i';
-							// preg_match($reg_exAt, $tweetText, $at)
 							if(preg_match($reg_exUrl, $tweetText, $url)) { $hasUrl = true; }
 							if(preg_match($reg_exAt, $tweetText, $at)) { $hasAt = true; }
+							
 							// Tweet has URLs, but no handles
 							if($hasUrl == true && $hasAt = false) {
      					  		$tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
@@ -82,7 +80,6 @@ function getTweets($handle, $show_replies){
 			$oTime = time();
 			$var = "<?\n\n\$savedTweet = \"$tweetArray[0]\";\n\n\$oldTime = $oTime;\n\n?>";
 			file_put_contents($file, $var) or die("~");
-			// $test = file_get_contents($file) or die("g");
 	}
 }
 getTweets($handle, $show_replies);
