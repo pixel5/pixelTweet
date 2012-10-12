@@ -28,38 +28,38 @@ function getTweets($handle, $show_replies){
 				if ($show_replies == false) {
 					// Shows replied tweets if enabled
 					if ($status->in_reply_to_status_id == NULL or $status->in_reply_to_status_id == "") {
-							$tweetText = $status->text;
+						$tweetText = $status->text;
 							
-							// Check for URL's and make 'em links
-							$reg_exUrl = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
-							$reg_exAt = '/(?<=^|\s)@([a-z0-9_]+)/i';
-							if(preg_match($reg_exUrl, $tweetText, $url)) { $hasUrl = true; }
-							if(preg_match($reg_exAt, $tweetText, $at)) { $hasAt = true; }
-							
-							// Tweet has URLs, but no handles
-							if($hasUrl == true && $hasAt = false) {
-     					  		$tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
-								$tweetArray[$i] = str_replace("\"", "'", "$tweetWithUrl");
-								$i += 1;
-							} 
-							// Tweet has Handles, but no URLs
-							elseif ($hasUrl == false && $hasAt = true) {
-								$tweetWithHandle = preg_replace($reg_exAt, "<a href='http://twitter.com/".$at[0]."' rel='nofollow'>".$at[0]."</a>", $tweetText);
-								$tweetArray[$i] = str_replace("\"", "'", "$tweetWithHandle");
-								$i += 1;
-							}
-							// Tweet has both handles and URLs
-							elseif ($hasUrl == true && $hasAt = true) {
-								$tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
-								$tweetWithUrlHandle = preg_replace($reg_exAt, "<a href='http://twitter.com/".$at[0]."' rel='nofollow'>".$at[0]."</a>", $tweetWithUrl);
-								$tweetArray[$i] = str_replace("\"", "'", "$tweetWithUrlHandle");
-								$i += 1;
-							}
-							else {
-								// Tweet has no links or handles
-								$tweetArray[$i] = htmlspecialchars("$tweetText", ENT_QUOTES);
- 	 							$i += 1;
-							}
+						// Check for URL's and make 'em links
+						$reg_exUrl = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+						$reg_exAt = '/(?<=^|\s)@([a-z0-9_]+)/i';
+						if(preg_match($reg_exUrl, $tweetText, $url)) { $hasUrl = true; }
+						if(preg_match($reg_exAt, $tweetText, $at)) { $hasAt = true; }
+						
+						// Tweet has URLs, but no handles
+						if($hasUrl == true && $hasAt = false) {
+     				  		$tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
+							$tweetArray[$i] = str_replace("\"", "'", "$tweetWithUrl");
+							$i += 1;
+						} 
+						// Tweet has Handles, but no URLs
+						elseif ($hasUrl == false && $hasAt = true) {
+							$tweetWithHandle = preg_replace($reg_exAt, "<a href='http://twitter.com/".$at[0]."' rel='nofollow'>".$at[0]."</a>", $tweetText);
+							$tweetArray[$i] = str_replace("\"", "'", "$tweetWithHandle");
+							$i += 1;
+						}
+						// Tweet has both handles and URLs
+						elseif ($hasUrl == true && $hasAt = true) {
+							$tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
+							$tweetWithUrlHandle = preg_replace($reg_exAt, "<a href='http://twitter.com/".$at[0]."' rel='nofollow'>".$at[0]."</a>", $tweetWithUrl);
+							$tweetArray[$i] = str_replace("\"", "'", "$tweetWithUrlHandle");
+							$i += 1;
+						}
+						else {
+							// Tweet has no links or handles
+							$tweetArray[$i] = htmlspecialchars("$tweetText", ENT_QUOTES);
+ 	 						$i += 1;
+						}
 							
 					}
 					else {
