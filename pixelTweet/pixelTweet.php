@@ -19,7 +19,7 @@ function getTweets($handle, $show_replies){
 		echo "<a href='http://twitter.com/$handle'>@$handle</a><br/>"."&quot;".$savedTweet."&quot;";
 		}
 		else {
-			$xml = simplexml_load_file($url) or die(mysql_error);
+			$xml = simplexml_load_file($url) or die("Could not Retrieve Tweets");
 
 			$i = 0;
 			$tweetArray = array();
