@@ -61,12 +61,11 @@ function makeLinks($tweetText, $i) {
 	// The Regular Expression filter
 	$reg_exUrl = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
 	$reg_exAt = '/(?<=^|\s)@([a-z0-9_]+)/i';
-	// preg_match($reg_exAt, $tweetText, $at)
+
 	if(preg_match($reg_exUrl, $tweetText, $url)) { $hasUrl = true; }
 	if(preg_match($reg_exAt, $tweetText, $at)) { $hasAt = true; }
 	// Tweet has URLs, but no handles
 	if($hasUrl == true && $hasAt = false) {
-     	// $tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
 		$tweetWithUrl = preg_replace("#(https?|ftp)://\S+[^\s.,>)\];'\"!?]#",'<a href="\\0">\\0</a>',$tweetText);
 		$linkTweet = str_replace("\"", "'", "$tweetWithUrl");
 		return $linkTweet;
@@ -79,7 +78,6 @@ function makeLinks($tweetText, $i) {
 	}
 	// Tweet has both handles and URLs
 	elseif ($hasUrl == true && $hasAt = true) {
-		// preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
 		$tweetWithUrl = preg_replace("#(https?|ftp)://\S+[^\s.,>)\];'\"!?]#",'<a href="\\0">\\0</a>',$tweetText);
 		$tweetWithUrlHandle = preg_replace($reg_exAt, "<a href='http://twitter.com/".$at[0]."' rel='nofollow'>".$at[0]."</a>", $tweetWithUrl);
 		$linkTweet = str_replace("\"", "'", "$tweetWithUrlHandle");
