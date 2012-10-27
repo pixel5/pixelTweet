@@ -30,7 +30,7 @@ function getTweets($handle, $show_replies){
 					// Shows replied tweets if enabled
 					if ($status->in_reply_to_status_id == NULL or $status->in_reply_to_status_id == "") {
 							$tweetText = $status->text;
-							$tweetArray[$i] = makeLinks($tweetText);
+							$tweetArray[$i] = makeLinks($tweetText, $i);
 							$i += 1;
 					}
 					else {
@@ -40,7 +40,7 @@ function getTweets($handle, $show_replies){
 				}
 				else {
 					$tweetText = $status->text;
-					$tweetArray[$i] = makeLinks($tweetText);
+					$tweetArray[$i] = makeLinks($tweetText, $i);
  	 				$i += 1;
 				}
      	 		}
@@ -55,7 +55,7 @@ function getTweets($handle, $show_replies){
 	}
 }
 
-function makeLinks($tweetText) {
+function makeLinks($tweetText, $i) {
 
 	// Check for URL's and make 'em links
 	// The Regular Expression filter
@@ -66,7 +66,8 @@ function makeLinks($tweetText) {
 	if(preg_match($reg_exAt, $tweetText, $at)) { $hasAt = true; }
 	// Tweet has URLs, but no handles
 	if($hasUrl == true && $hasAt = false) {
-     	$tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
+     	// $tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
+		$tweetWithUrl = preg_replace("#(https?|ftp)://\S+[^\s.,>)\];'\"!?]#",'<a href="\\0">\\0</a>',$tweetText);
 		$linkTweet = str_replace("\"", "'", "$tweetWithUrl");
 		return $linkTweet;
 	} 
@@ -78,7 +79,8 @@ function makeLinks($tweetText) {
 	}
 	// Tweet has both handles and URLs
 	elseif ($hasUrl == true && $hasAt = true) {
-		$tweetWithUrl = preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
+		// preg_replace($reg_exUrl, "<a href='".$url[0]."' rel='nofollow'>".$url[0]."</a>", $tweetText);
+		$tweetWithUrl = preg_replace("#(https?|ftp)://\S+[^\s.,>)\];'\"!?]#",'<a href="\\0">\\0</a>',$tweetText);
 		$tweetWithUrlHandle = preg_replace($reg_exAt, "<a href='http://twitter.com/".$at[0]."' rel='nofollow'>".$at[0]."</a>", $tweetWithUrl);
 		$linkTweet = str_replace("\"", "'", "$tweetWithUrlHandle");
 		return $linkTweet;
