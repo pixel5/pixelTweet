@@ -29,7 +29,7 @@ Solution: Make sure your file permissions are correct. The first time you load t
 Problem: 'savedTweet.php' is not created
 Solution: Once again, your permissions for user www-data are probably messed up… if that is the case, you have probably had more problems before this one. A workaround is to manually create the savedTweet.php file yourself and give it 777 permissions.
 
-If you encounter any other problems, contact me at aaron@pixel5.co with details on the issues.
+If you encounter any other problems, contact me at aaron@pixel5.us with details on the issues.
 
 pixelTweet is licensed under Creative Commons 2012. 
 http://github.com/pixel5/pixelTweet
